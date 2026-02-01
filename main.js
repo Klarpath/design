@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         {id:'mayfair-corporate',title:'The Mayfair - HVAC Solutions',description:'A professional and trustworthy template for HVAC companies, heating and cooling services, and climate control specialists.',tags:['service','hvac','heating','cooling','trades','plumbing'],coverImage:'https://picsum.photos/seed/mayfair/600/400',galleryImages:['https://picsum.photos/seed/mayfair1/1000/600','https://picsum.photos/seed/mayfair2/1000/600','https://picsum.photos/seed/mayfair3/1000/600'],liveUrl:'https://hvac.klarpath.com'},
         {id:'soho-pizzeria',title:'The Soho Slice - Pizzeria',description:'A vibrant and delicious-looking template for pizza shops, takeaways, and casual diners.',tags:['food','restaurant','pizza'],coverImage:'https://picsum.photos/seed/soho/600/400',galleryImages:['https://picsum.photos/seed/soho1/1000/600','https://picsum.photos/seed/soho2/1000/600','https://picsum.photos/seed/soho3/1000/600'],liveUrl:'#'},
         {id:'shoreditch-pub',title:'The Shoreditch - Pub',description:'A rustic, cosy, and traditional design perfect for a classic British pub or modern bar.',tags:['food','pub','bar'],coverImage:'https://picsum.photos/seed/shoreditch/600/400',galleryImages:['https://picsum.photos/seed/shoreditch1/1000/600','https://picsum.photos/seed/shoreditch2/1000/600','https://picsum.photos/seed/shoreditch3/1000/600'],liveUrl:'#'},
-        {id:'hackney-handyman',title:'The Hackney - Handyman',description:'A practical, reliable design for tradespeople, electricians, plumbers, and construction services.',tags:['service','trades','handyman','construction','plumber','electrician','home-remodeling'],coverImage:'https://picsum.photos/seed/hackney/600/400',galleryImages:['https://picsum.photos/seed/hackney1/1000/600','https://picsum.photos/seed/hackney2/1000/600','https://picsum.photos/seed/hackney3/1000/600'],liveUrl:'#'},
         {id:'hackney-handyman',title:'The Hackney - Plumbing & Heating',description:'A practical, reliable design for tradespeople, electricians, plumbers, and construction services.',tags:['service','trades','handyman','construction','plumber','electrician','home-remodeling'],coverImage:'https://picsum.photos/seed/hackney/600/400',galleryImages:['https://picsum.photos/seed/hackney1/1000/600','https://picsum.photos/seed/hackney2/1000/600','https://picsum.photos/seed/hackney3/1000/600'],liveUrl:'https://plumbing.klarpath.com'},
         {id:'battersea-garage',title:'The Battersea - Garage',description:'A robust and trustworthy template for auto repair shops, mechanics, and car servicing centers.',tags:['service','trades','garage','automotive'],coverImage:'https://picsum.photos/seed/battersea/600/400',galleryImages:['https://picsum.photos/seed/battersea1/1000/600','https://picsum.photos/seed/battersea2/1000/600','https://picsum.photos/seed/battersea3/1000/600'],liveUrl:'#'},
         {id:'covent-garden-store',title:'The Covent Garden - Store',description:'A stylish and modern template to showcase and sell products. Ideal for small e-commerce.',tags:['business','commercial','ecommerce','fashion'],coverImage:'https://picsum.photos/seed/covent/600/400',galleryImages:['https://picsum.photos/seed/covent1/1000/600','https://picsum.photos/seed/covent2/1000/600','https://picsum.photos/seed/covent3/1000/600'],liveUrl:'#'},
@@ -133,6 +132,16 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     return card;
     }
+    
+    // Sort templates: Trades first, then Professional, then others
+    TEMPLATES_DATA.sort((a, b) => {
+        const getPriority = (tags) => {
+            if (tags.includes('trades')) return 2;
+            if (tags.includes('professional')) return 1;
+            return 0;
+        };
+        return getPriority(b.tags) - getPriority(a.tags);
+    });
     
     TEMPLATES_DATA.forEach(template => templatesGrid.appendChild(createTemplateCard(template)));
     
