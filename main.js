@@ -273,24 +273,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- FAQ Accordion Logic ---
     const faqContainer = document.getElementById('faq-container');
     if (faqContainer) {
-    const faqItems = faqContainer.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        question.addEventListener('click', () => {
-            // Check if the clicked item is already active
-            const isAlreadyActive = item.classList.contains('active');
+        const faqItems = faqContainer.querySelectorAll('.faq-item');
 
-            // First, close all other items
-            faqItems.forEach(otherItem => {
-                otherItem.classList.remove('active');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            const icon = question.querySelector('i');
+
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                // Close all items
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                    const otherAnswer = otherItem.querySelector('.faq-answer');
+                    const otherIcon = otherItem.querySelector('.faq-question i');
+                    
+                    if (otherAnswer) otherAnswer.style.maxHeight = null;
+                    if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                });
+
+                // If the clicked item wasn't active, open it
+                if (!isActive) {
+                    item.classList.add('active');
+                    if (answer) answer.style.maxHeight = answer.scrollHeight + "px";
+                    if (icon) icon.style.transform = 'rotate(180deg)';
+                }
             });
-
-            // If the clicked item wasn't active, open it
-            if (!isAlreadyActive) {
-                item.classList.add('active');
-            }
         });
-    });
     }
 
     // --- Universal Policy Modal Logic (New & Final Version) ---
@@ -300,19 +310,190 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 1. Define the content for each policy ---
 
         const termsContent = `
-        <p class="text-sm"><strong>Last Updated: [Enter Today's Date]</strong></p>
-        <p>This Agreement governs the provision of website design and maintenance services ("Service") by Klarpath Ltd ("we", "us", "our") to you, the client ("you", "your"). By engaging our Service, you agree to be bound by these Terms and Conditions ("Terms") in full.</p>
-        <!-- ... (Truncated for brevity, content is same as original) ... -->
-        <h3 class="text-xl font-semibold text-primary-text-color pt-4">9. Governing Law & Jurisdiction</h3>
-        <p>This Agreement shall be governed by and construed in accordance with the laws of England and Wales. The parties irrevocably agree that the courts of England and Wales shall have exclusive jurisdiction to settle any dispute or claim.</p>
+        <h1 class="text-2xl font-bold text-primary-text-color mb-6">Terms & Conditions</h1>
+        <p class="text-sm mb-8">Last Updated: January 24, 2026</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">1. Acceptance of Terms</h3>
+        <p class="mb-4">By accessing and using the KlarPath website and services, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">2. Service Description</h3>
+        <p class="mb-4">KlarPath provides digital marketing services including SEO, paid media management, content strategy, web design, and data analytics. All services are described in our service packages and are subject to the specific terms of your signed service agreement.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">3. Pricing & Payment</h3>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li><strong>Growth Starter Plan (£150/month):</strong> Template website, chatbot, calendar booking, review automation. No setup fee.</li>
+            <li><strong>Custom Scale Plan (£300/month + £4,000-£6,000 setup):</strong> Custom website, all AI services, dedicated account manager.</li>
+            <li>Monthly billing begins on the start date specified in your agreement.</li>
+            <li>Setup fees are non-refundable once service implementation begins.</li>
+            <li>We accept bank transfer and credit card payments.</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">4. Service Timeline & Results</h3>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li>Digital marketing results typically appear within 4-12 weeks depending on service and market conditions.</li>
+            <li>SEO results are not guaranteed but are based on best practices and current algorithm standards.</li>
+            <li>We provide weekly reporting on all metrics and KPIs relevant to your campaigns.</li>
+            <li>Results depend on market conditions, competition, and implementation of our recommendations.</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">5. Client Responsibilities</h3>
+        <p class="mb-4">The Client agrees to:</p>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li>Provide timely feedback and content as requested</li>
+            <li>Maintain accurate business information (address, phone, business hours)</li>
+            <li>Grant access to necessary accounts (Google Analytics, Google Search Console, ad platforms)</li>
+            <li>Maintain current business licensing and comply with local regulations</li>
+            <li>Promptly report any issues or concerns with service delivery</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">6. Cancellation & Refund Policy</h3>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li>Either party may cancel with 30 days written notice.</li>
+            <li>Setup fees are non-refundable.</li>
+            <li>Monthly service fees are non-refundable except in cases of service failure or non-performance.</li>
+            <li>Early termination may result in loss of accumulated optimization benefits.</li>
+            <li>Upon cancellation, all accounts and assets created remain the property of the Client.</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">7. Intellectual Property</h3>
+        <p class="mb-4">The Client retains ownership of all content, data, and assets created during the engagement. KlarPath retains ownership of our methodologies, processes, and proprietary tools. The Client grants KlarPath the right to reference the engagement as a case study (with permission).</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">8. Limitations of Liability</h3>
+        <p class="mb-4">KlarPath is not liable for indirect, incidental, special, or consequential damages arising from the use of our services. Our liability is limited to the fees paid in the preceding 12 months. We are not responsible for third-party platform changes (Google algorithm updates, ad platform policy changes, etc.) that impact results.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">9. Confidentiality</h3>
+        <p class="mb-4">Both parties agree to maintain confidentiality of proprietary information disclosed during the engagement. This does not prevent either party from disclosing information required by law or regulation, or using aggregated/anonymized data for case studies.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">10. Data Privacy</h3>
+        <p class="mb-4">KlarPath processes personal data in accordance with GDPR and UK data protection laws. See our <a href="#" id="privacy-link-in-terms" class="text-accent-color hover:underline">Privacy Policy</a> for details. You consent to KlarPath collecting and using your business data for analytics and reporting purposes.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">11. Warranty Disclaimer</h3>
+        <p class="mb-4">KlarPath provides services on an "as-is" basis. We make no warranties regarding specific results, rankings, or revenue increases. We warrant that we will perform services professionally using industry-standard practices.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">12. Changes to Terms</h3>
+        <p class="mb-4">KlarPath reserves the right to modify these terms at any time. Continued use of services constitutes acceptance of modified terms. We will notify clients of significant changes via email.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">13. Dispute Resolution</h3>
+        <p class="mb-4">Any disputes will be resolved through good-faith negotiation. If unresolved within 30 days, disputes will be governed by English law and heard in the courts of England and Wales.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">14. Contact</h3>
+        <p class="mb-4">For questions about these terms, contact: <strong>hello@klarpath.com</strong></p>
+
+        <hr class="border-border-color my-8">
+        <p class="text-sm text-secondary-text-color">By using KlarPath services, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions.</p>
     `;
 
         const privacyContent = `
-        <p class="text-sm"><strong>Last Updated: [Enter Today's Date]</strong></p>
-        <p>This Privacy Policy describes how Klarpath ("we", "us", "our") collects, uses, and handles your personal information when you use our website and services, in compliance with the UK General Data Protection Regulation (UK GDPR).</p>
-        <!-- ... (Truncated for brevity, content is same as original) ... -->
-        <h3 class="text-xl font-semibold text-primary-text-color pt-4">7. How to Complain</h3>
-        <p>If you have any concerns about our use of your personal information, you can make a complaint to us. You also have the right to lodge a complaint with the UK's data protection regulator, the <strong>Information Commissioner's Office (ICO)</strong>.</p>
+        <h1 class="text-2xl font-bold text-primary-text-color mb-6">Privacy Policy</h1>
+        <p class="text-sm mb-8">Last Updated: January 24, 2026</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">1. Introduction</h3>
+        <p class="mb-4">KlarPath ("we," "our," or "us") operates the klarpath.com website and related services. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">2. Information We Collect</h3>
+        <p class="mb-2"><strong>Personal Information You Provide:</strong></p>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li>Name, email, phone number, company information</li>
+            <li>Billing and payment information (processed by secure payment providers)</li>
+            <li>Business data including analytics, performance metrics, customer information</li>
+            <li>Communications with our team via contact forms, email, or phone</li>
+        </ul>
+
+        <p class="mb-2"><strong>Information Automatically Collected:</strong></p>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li>IP address, browser type, device type, operating system</li>
+            <li>Pages visited, time spent on pages, referring website</li>
+            <li>Cookies and similar tracking technologies</li>
+            <li>Location information (city/country level from IP address)</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">3. How We Use Your Information</h3>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li>Provide and improve our digital marketing services</li>
+            <li>Send service updates, billing information, and customer support</li>
+            <li>Process payments and prevent fraud</li>
+            <li>Analyze website usage and optimize user experience</li>
+            <li>Send marketing communications (with your consent)</li>
+            <li>Comply with legal obligations</li>
+            <li>Create anonymized case studies and marketing materials</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">4. Legal Basis for Processing</h3>
+        <p class="mb-4">Under GDPR, we process your data based on:</p>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li><strong>Contract:</strong> Necessary to provide services you've requested</li>
+            <li><strong>Consent:</strong> For marketing communications and tracking</li>
+            <li><strong>Legitimate Interest:</strong> For analytics, fraud prevention, and service improvement</li>
+            <li><strong>Legal Compliance:</strong> To meet regulatory requirements</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">5. Cookies & Tracking Technologies</h3>
+        <p class="mb-4">We use:</p>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li><strong>Essential Cookies:</strong> Required for website functionality</li>
+            <li><strong>Analytics Cookies:</strong> Google Analytics to understand user behavior</li>
+            <li><strong>Marketing Cookies:</strong> To track conversions and optimize campaigns</li>
+        </ul>
+        <p class="mb-4">You can control cookies through your browser settings. Disabling cookies may affect website functionality.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">6. Third-Party Services</h3>
+        <p class="mb-4">We use third-party services including:</p>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li><strong>Google Analytics:</strong> Website analytics</li>
+            <li><strong>Google Ads:</strong> Conversion tracking</li>
+            <li><strong>Payment Processors:</strong> Stripe, Square (secure payment processing)</li>
+            <li><strong>Email Services:</strong> Mailchimp, SendGrid (email communications)</li>
+        </ul>
+        <p class="mb-4">These services have their own privacy policies. We recommend reviewing them.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">7. Data Retention</h3>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li>Client data: Retained for duration of service + 3 years after termination</li>
+            <li>Analytics data: Retained for 26 months</li>
+            <li>Marketing cookies: Retained for 2 years</li>
+            <li>You may request deletion of your data at any time</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">8. Data Security</h3>
+        <p class="mb-4">We implement industry-standard security measures including:</p>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li>SSL/TLS encryption for data in transit</li>
+            <li>Secure password hashing</li>
+            <li>Regular security audits</li>
+            <li>Limited access to personal data</li>
+        </ul>
+        <p class="mb-4">While we implement strong security, no method is 100% secure. We cannot guarantee absolute security of your data.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">9. Your Privacy Rights</h3>
+        <p class="mb-4">Under GDPR and UK CCPA, you have the right to:</p>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li><strong>Access:</strong> Request a copy of your personal data</li>
+            <li><strong>Rectification:</strong> Correct inaccurate information</li>
+            <li><strong>Erasure:</strong> Request deletion of your data ("Right to be Forgotten")</li>
+            <li><strong>Restriction:</strong> Limit how we use your data</li>
+            <li><strong>Portability:</strong> Receive your data in portable format</li>
+            <li><strong>Objection:</strong> Opt-out of marketing communications</li>
+        </ul>
+        <p class="mb-4">To exercise these rights, contact: <strong>hello@klarpath.com</strong></p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">10. Marketing Communications</h3>
+        <p class="mb-4">We send marketing emails only with your consent. You can unsubscribe at any time using the link in any email or by contacting us directly.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">11. Children's Privacy</h3>
+        <p class="mb-4">Our services are not directed to children under 13. We do not knowingly collect information from children. If you believe a child has provided information, please contact us immediately.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">12. International Data Transfers</h3>
+        <p class="mb-4">If you're outside the UK/EU, data transferred to us may be subject to different laws. By using our services, you consent to such transfers. We use Standard Contractual Clauses where required.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">13. Changes to This Policy</h3>
+        <p class="mb-4">We may update this policy periodically. Changes take effect when posted. Continued use constitutes acceptance of the updated policy.</p>
+
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">14. Data Protection Officer</h3>
+        <p class="mb-4">For privacy-related questions or complaints, contact: <strong>hello@klarpath.com</strong></p>
+        <p class="mb-4">You also have the right to lodge a complaint with the Information Commissioner's Office (ICO) at <strong>ico.org.uk</strong></p>
+
+        <hr class="border-border-color my-8">
+        <p class="text-sm text-secondary-text-color">By using KlarPath services, you acknowledge that you have read and agree to this Privacy Policy.</p>
     `;
 
     // --- 2. Get references to all modal elements ---
@@ -359,5 +540,73 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     }
+
+    // --- Info Modal Handler (For Plans & Features) ---
+    // Uses event delegation for better reliability
+    document.body.addEventListener('click', function(e) {
+        // Check if the clicked element or its parent has the class 'info-btn'
+        const infoBtn = e.target.closest('.info-btn');
+        
+        if (infoBtn) {
+            // Don't trigger if clicking a link or button inside the card (like "Get Started")
+            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('button')) {
+                return;
+            }
+
+            e.preventDefault();
+            
+            const infoModal = document.getElementById('info-modal');
+            if (!infoModal) return;
+
+            const infoModalTitle = document.getElementById('info-modal-title');
+            const infoModalDescription = document.getElementById('info-modal-description');
+            
+            const title = infoBtn.getAttribute('data-title');
+            const description = infoBtn.getAttribute('data-description');
+            
+            if (title && description) {
+                infoModalTitle.textContent = title;
+                infoModalDescription.textContent = description;
+                infoModal.classList.remove('hidden');
+                infoModal.classList.add('is-active');
+                infoModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        // Handle closing the modal
+        if (e.target.closest('#info-modal-close-btn') || 
+            e.target.closest('#info-modal-close-footer-btn') || 
+            e.target.id === 'info-modal-backdrop') {
+            
+            const infoModal = document.getElementById('info-modal');
+            if (infoModal) {
+                infoModal.classList.add('hidden');
+                infoModal.classList.remove('is-active');
+                infoModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+    });
+
+    // Close on Escape key
+    window.addEventListener('keydown', function(e) {
+        const infoModal = document.getElementById('info-modal');
+        if (e.key === 'Escape' && infoModal && !infoModal.classList.contains('hidden')) {
+            infoModal.classList.add('hidden');
+            infoModal.classList.remove('is-active');
+            infoModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    /* 
+    // OLD IMPLEMENTATION REMOVED - Replaced with delegation above
+    const infoModal = document.getElementById('info-modal');
+    if (infoModal) {
+        const infoModalTitle = document.getElementById('info-modal-title');
+        // ... (rest of old code)
+    } 
+    */
 
 });
