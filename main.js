@@ -280,26 +280,49 @@ document.addEventListener('DOMContentLoaded', () => {
             const answer = item.querySelector('.faq-answer');
             const icon = question.querySelector('i');
 
-            question.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-
-                // Close all items
+            const closeAllOthers = () => {
                 faqItems.forEach(otherItem => {
-                    otherItem.classList.remove('active');
-                    const otherAnswer = otherItem.querySelector('.faq-answer');
-                    const otherIcon = otherItem.querySelector('.faq-question i');
-                    
-                    if (otherAnswer) otherAnswer.style.maxHeight = null;
-                    if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                        const otherAnswer = otherItem.querySelector('.faq-answer');
+                        const otherIcon = otherItem.querySelector('.faq-question i');
+                        
+                        if (otherAnswer) otherAnswer.style.maxHeight = null;
+                        if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                    }
                 });
+            };
 
-                // If the clicked item wasn't active, open it
-                if (!isActive) {
+            const openItem = () => {
+                closeAllOthers();
+                if (!item.classList.contains('active')) {
                     item.classList.add('active');
                     if (answer) answer.style.maxHeight = answer.scrollHeight + "px";
                     if (icon) icon.style.transform = 'rotate(180deg)';
                 }
+            };
+
+            const closeItem = () => {
+                if (item.classList.contains('active')) {
+                    item.classList.remove('active');
+                    if (answer) answer.style.maxHeight = null;
+                    if (icon) icon.style.transform = 'rotate(0deg)';
+                }
+            };
+
+            question.addEventListener('click', () => {
+                if (item.classList.contains('active')) {
+                    closeItem();
+                } else {
+                    openItem();
+                }
             });
+
+            // Add hover effects only for devices that support hover (prevents double-trigger on touch)
+            if (window.matchMedia('(hover: hover)').matches) {
+                item.addEventListener('mouseenter', openItem);
+                item.addEventListener('mouseleave', closeItem);
+            }
         });
     }
 
@@ -321,8 +344,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">3. Pricing & Payment</h3>
         <ul class="list-disc ml-5 mb-4 space-y-1">
-            <li><strong>Growth Starter Plan (£150/month):</strong> Template website, chatbot, calendar booking, review automation. No setup fee.</li>
-            <li><strong>Custom Scale Plan (£300/month + £4,000-£6,000 setup):</strong> Custom website, all AI services, dedicated account manager.</li>
+            <li><strong>Launchpad Plan (£150/month + £150 Setup Fee):</strong> Professional template website, 'Emergency Call' lead magnet, elite performance & security.</li>
+            <li><strong>Growth Starter Plan (£300/month):</strong> Everything in Launchpad plus advanced lead capture, calendar booking, and automated review management. No setup fee.</li>
+            <li><strong>Custom Scale Plan (£650/month + £4,000-£6,000 Setup Fee):</strong> Custom website design, advanced AI-driven SEO, content strategy, and dedicated account manager.</li>
             <li>Monthly billing begins on the start date specified in your agreement.</li>
             <li>Setup fees are non-refundable once service implementation begins.</li>
             <li>We accept bank transfer and credit card payments.</li>
@@ -541,72 +565,107 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     }
 
-    // --- Info Modal Handler (For Plans & Features) ---
-    // Uses event delegation for better reliability
-    document.body.addEventListener('click', function(e) {
-        // Check if the clicked element or its parent has the class 'info-btn'
-        const infoBtn = e.target.closest('.info-btn');
+    // --- Quick View Popup Logic (Press & Hold) ---
+    const quickViewPopup = document.getElementById('quick-view-popup');
+    const quickViewTitle = document.getElementById('quick-view-title');
+    const quickViewDesc = document.getElementById('quick-view-description');
+    const quickViewImage = document.getElementById('quick-view-image');
+    
+    // Target all elements with class 'info-btn'
+    const infoBtns = document.querySelectorAll('.info-btn');
+
+    if (quickViewPopup && infoBtns.length > 0) {
         
-        if (infoBtn) {
-            // Don't trigger if clicking a link or button inside the card (like "Get Started")
-            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('button')) {
-                return;
-            }
-
-            e.preventDefault();
-            
-            const infoModal = document.getElementById('info-modal');
-            if (!infoModal) return;
-
-            const infoModalTitle = document.getElementById('info-modal-title');
-            const infoModalDescription = document.getElementById('info-modal-description');
-            
-            const title = infoBtn.getAttribute('data-title');
-            const description = infoBtn.getAttribute('data-description');
+        const showPopup = (btn) => {
+            const title = btn.getAttribute('data-title');
+            const description = btn.getAttribute('data-description');
+            const image = btn.getAttribute('data-image');
             
             if (title && description) {
-                infoModalTitle.textContent = title;
-                infoModalDescription.textContent = description;
-                infoModal.classList.remove('hidden');
-                infoModal.classList.add('is-active');
-                infoModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
+                quickViewTitle.textContent = title;
+                quickViewDesc.textContent = description;
+                
+                if (quickViewImage) {
+                    if (image) {
+                        quickViewImage.src = image;
+                        quickViewImage.parentElement.classList.remove('hidden');
+                    } else {
+                        quickViewImage.parentElement.classList.add('hidden');
+                    }
+                }
+                
+                // Use rAF to ensure content is set before we measure
+                requestAnimationFrame(() => {
+                    // Make it measurable but invisible
+                    quickViewPopup.style.transition = 'none';
+                    quickViewPopup.style.visibility = 'hidden';
+                    quickViewPopup.classList.remove('opacity-0', 'scale-90', 'translate-y-4');
+
+                    // Calculate position
+                    const cardRect = btn.getBoundingClientRect();
+                    const popupRect = quickViewPopup.getBoundingClientRect();
+                    const viewportWidth = window.innerWidth;
+                    const viewportHeight = window.innerHeight;
+                    const offset = 16; // 1rem
+
+                    // Default position: to the right, vertically centered
+                    let top = cardRect.top + (cardRect.height / 2) - (popupRect.height / 2);
+                    let left = cardRect.right + offset;
+
+                    // Boundary checks to prevent going off-screen
+                    if (left + popupRect.width > viewportWidth - offset) {
+                        left = cardRect.left - popupRect.width - offset;
+                    }
+                    if (left < offset) { left = offset; }
+                    if (top < offset) { top = offset; }
+                    if (top + popupRect.height > viewportHeight - offset) {
+                        top = viewportHeight - popupRect.height - offset;
+                    }
+
+                    // Set final position and prepare for animation
+                    quickViewPopup.style.top = `${top}px`;
+                    quickViewPopup.style.left = `${left}px`;
+                    quickViewPopup.style.transition = '';
+                    quickViewPopup.style.visibility = 'visible';
+                    quickViewPopup.classList.add('opacity-0', 'scale-90', 'translate-y-4');
+
+                    // In the next frame, trigger the animation
+                    requestAnimationFrame(() => {
+                        quickViewPopup.classList.remove('opacity-0', 'scale-90', 'translate-y-4');
+                        quickViewPopup.classList.add('opacity-100', 'scale-100', 'translate-y-0');
+                    });
+                });
             }
-        }
-        
-        // Handle closing the modal
-        if (e.target.closest('#info-modal-close-btn') || 
-            e.target.closest('#info-modal-close-footer-btn') || 
-            e.target.id === 'info-modal-backdrop') {
+        };
+
+        const hidePopup = () => {
+            // Hide with animation
+            quickViewPopup.classList.remove('opacity-100', 'scale-100', 'translate-y-0');
+            quickViewPopup.classList.add('opacity-0', 'scale-90', 'translate-y-4');
+        };
+
+        infoBtns.forEach(btn => {
+            // Mouse Events
+            btn.addEventListener('mouseenter', () => showPopup(btn));
+            btn.addEventListener('mousedown', (e) => {
+                // Ignore clicks on links/buttons inside the card
+                if (e.target.closest('a') || e.target.closest('button')) return;
+                if (e.button === 0) showPopup(btn); // Left click only
+            });
             
-            const infoModal = document.getElementById('info-modal');
-            if (infoModal) {
-                infoModal.classList.add('hidden');
-                infoModal.classList.remove('is-active');
-                infoModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        }
-    });
+            btn.addEventListener('mouseup', hidePopup);
+            btn.addEventListener('mouseleave', hidePopup);
 
-    // Close on Escape key
-    window.addEventListener('keydown', function(e) {
-        const infoModal = document.getElementById('info-modal');
-        if (e.key === 'Escape' && infoModal && !infoModal.classList.contains('hidden')) {
-            infoModal.classList.add('hidden');
-            infoModal.classList.remove('is-active');
-            infoModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-    });
-
-    /* 
-    // OLD IMPLEMENTATION REMOVED - Replaced with delegation above
-    const infoModal = document.getElementById('info-modal');
-    if (infoModal) {
-        const infoModalTitle = document.getElementById('info-modal-title');
-        // ... (rest of old code)
-    } 
-    */
+            // Touch Events
+            btn.addEventListener('touchstart', (e) => {
+                // Ignore clicks on links/buttons inside the card
+                if (e.target.closest('a') || e.target.closest('button')) return;
+                showPopup(btn);
+            }, { passive: true });
+            
+            btn.addEventListener('touchend', hidePopup);
+            btn.addEventListener('touchcancel', hidePopup);
+        });
+    }
 
 });
