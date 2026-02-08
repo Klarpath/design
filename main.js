@@ -246,8 +246,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const button = e.target.closest('.view-demo-btn');
     if (button) {
         // Buy Now links navigate to #packages via href
+        const consent = sessionStorage.getItem('klarpath_cookie_consent');
+        if (consent !== 'accepted') {
+            e.preventDefault();
+            const banner = document.getElementById('cookie-banner');
+            if (banner) banner.classList.remove('translate-y-full');
+            // Small delay to ensure banner is visible before alert blocks the UI
+            setTimeout(() => {
+                alert("Please accept our Terms & Conditions and Cookies policy to proceed with your purchase.");
+            }, 50);
+            return;
+        }
         // Modal functionality has been replaced with direct navigation
     }
+    });
+
+    // --- Package Selection Logic ---
+    const packageButtons = document.querySelectorAll('.select-plan-btn');
+    packageButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const consent = sessionStorage.getItem('klarpath_cookie_consent');
+            if (consent !== 'accepted') {
+                e.preventDefault();
+                const banner = document.getElementById('cookie-banner');
+                if (banner) banner.classList.remove('translate-y-full');
+                // Small delay to ensure banner is visible before alert blocks the UI
+                setTimeout(() => {
+                    alert("Please accept our Terms & Conditions and Cookies policy to proceed with your purchase.");
+                }, 50);
+            }
+        });
     });
 
     modalPrevBtn.addEventListener('click', (e) => {
@@ -351,6 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <li>Setup fees are non-refundable once service implementation begins.</li>
             <li>We accept bank transfer and credit card payments.</li>
         </ul>
+        <p class="mb-4"><strong>Clarification on 'No Monthly Platform Fees':</strong> When we say no monthly fees, we mean no platform or website rental fees — you actually own your website. The only monthly cost is if you want us to maintain and update it for you, like servicing a van. You can keep the site without us, but most customers prefer we handle updates and security so everything keeps running smoothly.</p>
 
         <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">4. Service Timeline & Results</h3>
         <ul class="list-disc ml-5 mb-4 space-y-1">
@@ -379,17 +408,27 @@ document.addEventListener('DOMContentLoaded', () => {
             <li>Upon cancellation, all accounts and assets created remain the property of the Client.</li>
         </ul>
 
-        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">7. Intellectual Property</h3>
-        <p class="mb-4">The Client retains ownership of all content, data, and assets created during the engagement. KlarPath retains ownership of our methodologies, processes, and proprietary tools. The Client grants KlarPath the right to reference the engagement as a case study (with permission).</p>
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">7. Intellectual Property & Limited Usage License</h3>
+        <p class="mb-4"><strong>7.1 Ownership:</strong> Upon full payment, the Client is granted full ownership of the compiled website code, content, and data for use within their specific business entity.</p>
+        <p class="mb-4"><strong>7.2 Limited License (No Resale):</strong> KlarPath grants the Client a perpetual, worldwide, non-exclusive, non-transferable license to use, modify, and host the Website Source Code for the Client's own business operations. <strong>Strict Restriction:</strong> The Client is strictly prohibited from reselling, redistributing, sub-licensing, or repackaging the Website Source Code, design system, or templates as a product for third parties. This is a "Single End-Product" license, not a developer license for mass distribution.</p>
 
-        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">8. Limitations of Liability</h3>
-        <p class="mb-4">KlarPath is not liable for indirect, incidental, special, or consequential damages arising from the use of our services. Our liability is limited to the fees paid in the preceding 12 months. We are not responsible for third-party platform changes (Google algorithm updates, ad platform policy changes, etc.) that impact results.</p>
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">8. Limitation of Liability & Indemnification</h3>
+        <p class="mb-4">To the fullest extent permitted by applicable law, KlarPath, its owners, directors, employees, and agents shall not be liable for any direct, indirect, incidental, special, consequential, punitive, or exemplary damages. This includes, but is not limited to, damages for:</p>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li><strong>Financial Loss:</strong> Loss of profits, revenue, savings, or business opportunities;</li>
+            <li><strong>Moral & Reputational Damage:</strong> Loss of goodwill, reputation, or emotional distress;</li>
+            <li><strong>Data Loss:</strong> Loss of use, data corruption, or intangible losses;</li>
+            <li><strong>Service Interruptions:</strong> The use or inability to use the service due to technical failures.</li>
+        </ul>
+        <p class="mb-4"><strong>Cyber Security Disclaimer:</strong> While we implement security measures aligned with <strong>ISO/IEC 27001</strong> information security standards, you acknowledge that no system is entirely immune to cyber-attacks. KlarPath is not responsible for any data breaches, ransomware, financial theft, or service interruptions caused by external threat actors or the Client's failure to secure their own credentials.</p>
 
-        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">9. Confidentiality</h3>
-        <p class="mb-4">Both parties agree to maintain confidentiality of proprietary information disclosed during the engagement. This does not prevent either party from disclosing information required by law or regulation, or using aggregated/anonymized data for case studies.</p>
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">9. Regulatory Compliance & Legal Frameworks</h3>
+        <p class="mb-4"><strong>9.1 Computer Misuse Act 1990:</strong> You agree to use the Service in accordance with the Computer Misuse Act 1990. Any unauthorized access, modification, or interference with our systems or code (outside the scope of your license) is strictly prohibited and may be reported to relevant law enforcement authorities.</p>
+        <p class="mb-4"><strong>9.2 Data Protection Act 2018 & UK GDPR:</strong> KlarPath processes data in compliance with the Data Protection Act 2018 and the UK General Data Protection Regulation (UK GDPR). We act as a Data Processor for the services provided. You, the Client, retain the role of Data Controller and are responsible for ensuring a lawful basis for processing your customers' data. We disclaim liability for any fines or penalties incurred by the Client due to their non-compliance with data protection laws.</p>
+        <p class="mb-4"><strong>9.3 Information Governance:</strong> Our development practices are informed by robust Information Governance principles. However, the Client assumes full responsibility for the operational governance of the website post-handover, including the management of user access and data retention policies.</p>
 
-        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">10. Data Privacy</h3>
-        <p class="mb-4">KlarPath processes personal data in accordance with GDPR and UK data protection laws. See our <a href="#" id="privacy-link-in-terms" class="text-accent-color hover:underline">Privacy Policy</a> for details. You consent to KlarPath collecting and using your business data for analytics and reporting purposes.</p>
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">10. Confidentiality & Data Privacy</h3>
+        <p class="mb-4">Both parties agree to maintain confidentiality of proprietary information. KlarPath processes personal data in accordance with GDPR and UK data protection laws. See our <a href="#" id="privacy-link-in-terms" class="text-accent-color hover:underline">Privacy Policy</a> for details.</p>
 
         <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">11. Warranty Disclaimer</h3>
         <p class="mb-4">KlarPath provides services on an "as-is" basis. We make no warranties regarding specific results, rankings, or revenue increases. We warrant that we will perform services professionally using industry-standard practices.</p>
@@ -665,6 +704,90 @@ document.addEventListener('DOMContentLoaded', () => {
             
             btn.addEventListener('touchend', hidePopup);
             btn.addEventListener('touchcancel', hidePopup);
+        });
+    }
+
+    // --- Cookie Consent Logic ---
+    const cookieBanner = document.getElementById('cookie-banner');
+    const cookieAcceptBtn = document.getElementById('cookie-accept');
+    const cookieDeclineBtn = document.getElementById('cookie-decline');
+    const cookiePolicyLink = document.getElementById('cookie-policy-link');
+    const cookieTermsLink = document.getElementById('cookie-terms-link');
+
+    if (cookieBanner) {
+        // Check if user has already made a choice
+        const cookieConsent = sessionStorage.getItem('klarpath_cookie_consent');
+
+        if (!cookieConsent) {
+            // Show banner after a short delay
+            setTimeout(() => {
+                cookieBanner.classList.remove('translate-y-full');
+            }, 1000);
+        }
+
+        cookieAcceptBtn.addEventListener('click', () => {
+            sessionStorage.setItem('klarpath_cookie_consent', 'accepted');
+            cookieBanner.classList.add('translate-y-full');
+            // Here you would trigger your analytics scripts if they aren't auto-loaded
+        });
+
+        cookieDeclineBtn.addEventListener('click', () => {
+            sessionStorage.setItem('klarpath_cookie_consent', 'declined');
+            cookieBanner.classList.add('translate-y-full');
+        });
+
+        if (cookiePolicyLink) {
+            cookiePolicyLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Open the privacy policy modal defined earlier
+                const openPrivacyLink = document.getElementById('open-privacy-link');
+                if (openPrivacyLink) openPrivacyLink.click();
+            });
+        }
+
+        if (cookieTermsLink) {
+            cookieTermsLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Open the terms modal defined earlier
+                const openTermsLink = document.getElementById('open-terms-link');
+                if (openTermsLink) openTermsLink.click();
+            });
+        }
+    }
+
+    // --- Contact Form Handling (Visual Only) ---
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = contactForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+            
+            btn.innerText = 'Sending...';
+            btn.disabled = true;
+            btn.classList.add('opacity-75');
+
+            // Simulate network request
+            setTimeout(() => {
+                btn.innerText = 'Message Sent!';
+                btn.classList.remove('bg-accent-color');
+                btn.classList.add('bg-green-600');
+                
+                // Send email via mailto
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+                window.location.href = `mailto:info@klarpath.com?subject=New Inquiry from ${encodeURIComponent(name)}&body=Name: ${encodeURIComponent(name)}%0D%0AEmail: ${encodeURIComponent(email)}%0D%0AMessage: ${encodeURIComponent(message)}`;
+                
+                setTimeout(() => {
+                    contactForm.reset();
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-75', 'bg-green-600');
+                    btn.classList.add('bg-accent-color');
+                    alert("Thanks for reaching out! We'll get back to you shortly.");
+                }, 2000);
+            }, 1500);
         });
     }
 
