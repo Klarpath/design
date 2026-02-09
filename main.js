@@ -408,9 +408,14 @@ document.addEventListener('DOMContentLoaded', () => {
             <li>Upon cancellation, all accounts and assets created remain the property of the Client.</li>
         </ul>
 
-        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">7. Intellectual Property & Limited Usage License</h3>
-        <p class="mb-4"><strong>7.1 Ownership:</strong> Upon full payment, the Client is granted full ownership of the compiled website code, content, and data for use within their specific business entity.</p>
-        <p class="mb-4"><strong>7.2 Limited License (No Resale):</strong> KlarPath grants the Client a perpetual, worldwide, non-exclusive, non-transferable license to use, modify, and host the Website Source Code for the Client's own business operations. <strong>Strict Restriction:</strong> The Client is strictly prohibited from reselling, redistributing, sub-licensing, or repackaging the Website Source Code, design system, or templates as a product for third parties. This is a "Single End-Product" license, not a developer license for mass distribution.</p>
+        <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">7. Intellectual Property & Code Ownership</h3>
+        <p class="mb-4"><strong>7.1 Ownership Transfer Conditions:</strong> Full ownership of the compiled website source code ("the Code") is transferred to the Client upon fulfillment of one of the following conditions:</p>
+        <ul class="list-disc ml-5 mb-4 space-y-1">
+            <li><strong>Subscription Plans:</strong> Completion of the full 24-month payment term for the Launchpad or Growth Starter plans.</li>
+            <li><strong>Upfront Payment:</strong> Full payment of the one-time buyout fee for the Launchpad (£3,000) or Growth Starter (£6,000) plans.</li>
+            <li><strong>Custom & Enterprise Plans:</strong> Full payment of the setup fee for the Custom Scale or Enterprise plan.</li>
+        </ul>
+        <p class="mb-4"><strong>7.2 License Prior to Ownership Transfer:</strong> For clients on a monthly payment plan, KlarPath grants a limited, non-exclusive, non-transferable license to use the website for the duration of the payment term. This license is contingent upon timely monthly payments.</p>
 
         <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">8. Limitation of Liability & Indemnification</h3>
         <p class="mb-4">To the fullest extent permitted by applicable law, KlarPath, its owners, directors, employees, and agents shall not be liable for any direct, indirect, incidental, special, consequential, punitive, or exemplary damages. This includes, but is not limited to, damages for:</p>
@@ -661,18 +666,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     const viewportHeight = window.innerHeight;
                     const offset = 16; // 1rem
 
-                    // Default position: to the right, vertically centered
-                    let top = cardRect.top + (cardRect.height / 2) - (popupRect.height / 2);
-                    let left = cardRect.right + offset;
+                    let top, left;
 
-                    // Boundary checks to prevent going off-screen
-                    if (left + popupRect.width > viewportWidth - offset) {
-                        left = cardRect.left - popupRect.width - offset;
-                    }
-                    if (left < offset) { left = offset; }
-                    if (top < offset) { top = offset; }
-                    if (top + popupRect.height > viewportHeight - offset) {
-                        top = viewportHeight - popupRect.height - offset;
+                    // Mobile/Tablet check (simplified width check)
+                    if (viewportWidth < 768) {
+                        // Center on screen
+                        top = (viewportHeight - popupRect.height) / 2;
+                        left = (viewportWidth - popupRect.width) / 2;
+                    } else {
+                        // Desktop: Position relative to card
+                        // Default position: to the right, vertically centered
+                        top = cardRect.top + (cardRect.height / 2) - (popupRect.height / 2);
+                        left = cardRect.right + offset;
+
+                        // Boundary checks to prevent going off-screen
+                        if (left + popupRect.width > viewportWidth - offset) {
+                            left = cardRect.left - popupRect.width - offset;
+                        }
+                        if (left < offset) { left = offset; }
+                        if (top < offset) { top = offset; }
+                        if (top + popupRect.height > viewportHeight - offset) {
+                            top = viewportHeight - popupRect.height - offset;
+                        }
                     }
 
                     // Set final position and prepare for animation

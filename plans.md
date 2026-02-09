@@ -1,7 +1,7 @@
 # Update Guide for Klarpath.co.uk
 
 **Objective:** Update `klarpath.co.uk` to match the pricing, T&Cs, and compliance features of `klarpath.com`.
-also when the action button on each plan is pressed redirect to klarpath.com. thanks
+also when the action button on each plan is pressed redirect to klarpath.com. also keep the themes and style of the actual website.thanks
 
 ---
 
