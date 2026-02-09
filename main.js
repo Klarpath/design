@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateModalImage();
     });
 
-    closeButtons.forEach(btn => btn.addEventListener('click', closeModal));
+    closeButtons.filter(btn => btn !== null).forEach(btn => btn.addEventListener('click', closeModal));
     modalContent.addEventListener('click', e => e.stopPropagation());
     window.addEventListener('keydown', e => {
     if (e.key === 'Escape' && modal.classList.contains('is-active')) {
@@ -368,19 +368,19 @@ document.addEventListener('DOMContentLoaded', () => {
         <p class="mb-4">By accessing and using the KlarPath website and services, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p>
 
         <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">2. Service Description</h3>
-        <p class="mb-4">KlarPath provides digital marketing services including SEO, paid media management, content strategy, web design, and data analytics. All services are described in our service packages and are subject to the specific terms of your signed service agreement.</p>
+        <p class="mb-4">KlarPath provides digital marketing services including SEO, paid media management, content strategy, web design, and data analytics. For select plans (Custom Scale and Enterprise), this includes access to our proprietary client growth platform for managing leads, communications, and analytics. All services are described in our service packages and are subject to the specific terms of your signed service agreement.</p>
 
         <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">3. Pricing & Payment</h3>
         <ul class="list-disc ml-5 mb-4 space-y-1">
-            <li><strong>Launchpad Plan (£150/month + £150 Setup Fee):</strong> Professional template website, 'Emergency Call' lead magnet, elite performance & security.</li>
-            <li><strong>Growth Starter Plan (£300/month):</strong> Everything in Launchpad plus advanced lead capture, calendar booking, and automated review management. No setup fee.</li>
-            <li><strong>Custom Scale Plan (£650/month + £4,000-£6,000 Setup Fee):</strong> Custom website design, advanced AI-driven SEO, content strategy, and dedicated account manager.</li>
+            <li><strong>Launchpad Plan (£150/month + £150 Setup Fee):</strong> Includes a professional template website and essential features. Code ownership is granted after 24 monthly payments. An upfront payment of <strong>£3,000</strong> grants immediate code ownership and handover documentation.</li>
+            <li><strong>Growth Starter Plan (£300/month):</strong> Our most popular package with advanced lead capture tools. Code ownership is granted after 24 monthly payments. An upfront payment of <strong>£6,000</strong> grants immediate code ownership and handover documentation.</li>
+            <li><strong>Custom Scale Plan (£650/month + £4,000-£6,000 Setup Fee):</strong> Custom website design, advanced AI-driven SEO, content strategy, and dedicated account manager. Includes access to our client growth platform with a unified dashboard and mobile app.</li>
+            <li><strong>Enterprise Plan (From £1500/month + Custom Setup Fee):</strong> A bespoke solution for industry leaders, including dedicated infrastructure, 24/7 priority support with an SLA, and advanced security audits. Includes full access to our dedicated growth platform with a custom UI, dashboard, and mobile app. Immediate code ownership is included as part of the setup fee.</li>
             <li>Monthly billing begins on the start date specified in your agreement.</li>
             <li>Setup fees are non-refundable once service implementation begins.</li>
             <li>We accept bank transfer and credit card payments.</li>
         </ul>
-        <p class="mb-4"><strong>Clarification on 'No Monthly Platform Fees':</strong> When we say no monthly fees, we mean no platform or website rental fees — you actually own your website. The only monthly cost is if you want us to maintain and update it for you, like servicing a van. You can keep the site without us, but most customers prefer we handle updates and security so everything keeps running smoothly.</p>
-
+        <p class="mb-4"><strong>Code Ownership & Monthly Fees:</strong> For our Launchpad and Growth Starter plans, the monthly fee is part of a 24-month agreement which culminates in you owning the website code. This fee covers the development cost, premium hosting, security, and maintenance. After 24 months, you own the code and can choose to move to a maintenance-only plan or manage the site yourself. Alternatively, you can purchase the website outright with a one-time fee for immediate ownership. The Custom Scale 
         <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">4. Service Timeline & Results</h3>
         <ul class="list-disc ml-5 mb-4 space-y-1">
             <li>Digital marketing results typically appear within 4-12 weeks depending on service and market conditions.</li>
@@ -440,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p class="mb-4">Any disputes will be resolved through good-faith negotiation. If unresolved within 30 days, disputes will be governed by English law and heard in the courts of England and Wales.</p>
 
         <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">14. Contact</h3>
-        <p class="mb-4">For questions about these terms, contact: <strong>hello@klarpath.com</strong></p>
+        <p class="mb-4">For questions about these terms, contact: <strong>info@klarpath.com</strong></p>
 
         <hr class="border-border-color my-8">
         <p class="text-sm text-secondary-text-color">By using KlarPath services, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions.</p>
@@ -537,7 +537,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <li><strong>Portability:</strong> Receive your data in portable format</li>
             <li><strong>Objection:</strong> Opt-out of marketing communications</li>
         </ul>
-        <p class="mb-4">To exercise these rights, contact: <strong>hello@klarpath.com</strong></p>
+        <p class="mb-4">To exercise these rights, contact: <strong>info@klarpath.com</strong></p>
 
         <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">10. Marketing Communications</h3>
         <p class="mb-4">We send marketing emails only with your consent. You can unsubscribe at any time using the link in any email or by contacting us directly.</p>
@@ -552,7 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p class="mb-4">We may update this policy periodically. Changes take effect when posted. Continued use constitutes acceptance of the updated policy.</p>
 
         <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">14. Data Protection Officer</h3>
-        <p class="mb-4">For privacy-related questions or complaints, contact: <strong>hello@klarpath.com</strong></p>
+        <p class="mb-4">For privacy-related questions or complaints, contact: <strong>info@klarpath.com</strong></p>
         <p class="mb-4">You also have the right to lodge a complaint with the Information Commissioner's Office (ICO) at <strong>ico.org.uk</strong></p>
 
         <hr class="border-border-color my-8">
@@ -582,15 +582,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 4. Attach event listeners ---
 
-    openTermsLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showModal('Terms and Conditions', termsContent);
-    });
+    if (openTermsLink) {
+        openTermsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showModal('Terms and Conditions', termsContent);
+        });
+    }
 
-    openPrivacyLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showModal('Privacy Policy', privacyContent);
-    });
+    if (openPrivacyLink) {
+        openPrivacyLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showModal('Privacy Policy', privacyContent);
+        });
+    }
 
     closeBtn.addEventListener('click', closeModal);
     agreeBtn.addEventListener('click', closeModal);
@@ -615,6 +619,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (quickViewPopup && infoBtns.length > 0) {
         
+        const closeBtn = document.getElementById('quick-view-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                hidePopup();
+            });
+        }
+
         const showPopup = (btn) => {
             const title = btn.getAttribute('data-title');
             const description = btn.getAttribute('data-description');
@@ -635,6 +647,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Use rAF to ensure content is set before we measure
                 requestAnimationFrame(() => {
+                    quickViewPopup.classList.remove('pointer-events-none');
+                    quickViewPopup.classList.add('pointer-events-auto');
                     // Make it measurable but invisible
                     quickViewPopup.style.transition = 'none';
                     quickViewPopup.style.visibility = 'hidden';
@@ -679,31 +693,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const hidePopup = () => {
             // Hide with animation
+            quickViewPopup.classList.remove('pointer-events-auto');
+            quickViewPopup.classList.add('pointer-events-none');
             quickViewPopup.classList.remove('opacity-100', 'scale-100', 'translate-y-0');
             quickViewPopup.classList.add('opacity-0', 'scale-90', 'translate-y-4');
         };
 
         infoBtns.forEach(btn => {
-            // Mouse Events
-            btn.addEventListener('mouseenter', () => showPopup(btn));
-            btn.addEventListener('mousedown', (e) => {
-                // Ignore clicks on links/buttons inside the card
-                if (e.target.closest('a') || e.target.closest('button')) return;
-                if (e.button === 0) showPopup(btn); // Left click only
-            });
-            
-            btn.addEventListener('mouseup', hidePopup);
-            btn.addEventListener('mouseleave', hidePopup);
+            // Mouse Events for devices that support hover
+            if (window.matchMedia('(hover: hover)').matches) {
+                btn.addEventListener('mouseenter', () => showPopup(btn));
+                btn.addEventListener('mouseleave', hidePopup);
+            }
 
-            // Touch Events
-            btn.addEventListener('touchstart', (e) => {
+            // Click/Touch Toggle
+            btn.addEventListener('click', (e) => {
                 // Ignore clicks on links/buttons inside the card
                 if (e.target.closest('a') || e.target.closest('button')) return;
+                e.stopPropagation();
                 showPopup(btn);
-            }, { passive: true });
-            
-            btn.addEventListener('touchend', hidePopup);
-            btn.addEventListener('touchcancel', hidePopup);
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!quickViewPopup.contains(e.target)) {
+                hidePopup();
+            }
         });
     }
 
@@ -719,10 +734,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const cookieConsent = sessionStorage.getItem('klarpath_cookie_consent');
 
         if (!cookieConsent) {
-            // Show banner after a short delay
+            // Show banner after a small delay
             setTimeout(() => {
                 cookieBanner.classList.remove('translate-y-full');
-            }, 1000);
+            }, 500);
         }
 
         cookieAcceptBtn.addEventListener('click', () => {
