@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (banner) banner.classList.remove('translate-y-full');
             // Small delay to ensure banner is visible before alert blocks the UI
             setTimeout(() => {
-                alert("Please accept our Terms & Conditions and Cookies policy to proceed with your purchase.");
+                alert("Please accept our Terms & Conditions and Privacy Policy to proceed with your purchase.");
             }, 50);
             return;
         }
@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (banner) banner.classList.remove('translate-y-full');
                 // Small delay to ensure banner is visible before alert blocks the UI
                 setTimeout(() => {
-                    alert("Please accept our Terms & Conditions and Cookies policy to proceed with your purchase.");
+                    alert("Please accept our Terms & Conditions and Privacy Policy to proceed with your purchase.");
                 }, 50);
             }
         });
