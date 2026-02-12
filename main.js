@@ -380,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <li>Setup fees are non-refundable once service implementation begins.</li>
             <li>We accept bank transfer and credit card payments.</li>
         </ul>
-        <p class="mb-4"><strong>Code Ownership & Monthly Fees:</strong> For our Launchpad and Growth Starter plans, the monthly fee is part of a 24-month agreement which culminates in you owning the website code. This fee covers the development cost, premium hosting, security, and maintenance. After 24 months, you own the code and can choose to move to a maintenance-only plan or manage the site yourself. Alternatively, you can purchase the website outright with a one-time fee for immediate ownership. The Custom Scale 
+        <p class="mb-4"><strong>Code Ownership & Monthly Fees:</strong> For our Launchpad and Growth Starter plans, the monthly fee is part of a 24-month agreement which culminates in you owning the website code. This fee covers the development cost, premium hosting, security, and maintenance. After 24 months, you own the code and can choose to move to a maintenance-only plan or manage the site yourself. Alternatively, you can purchase the website outright with a one-time fee for immediate ownership. The Custom Scale plan includes a bespoke design process and advanced features.</p>
         <h3 class="text-xl font-semibold text-primary-text-color mt-6 mb-3">4. Service Timeline & Results</h3>
         <ul class="list-disc ml-5 mb-4 space-y-1">
             <li>Digital marketing results typically appear within 4-12 weeks depending on service and market conditions.</li>
