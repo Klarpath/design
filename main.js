@@ -251,11 +251,6 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const banner = document.getElementById('cookie-banner');
             if (banner) banner.classList.remove('translate-y-full');
-            // Small delay to ensure banner is visible before alert blocks the UI
-            setTimeout(() => {
-                alert("Please accept our Terms & Conditions and Privacy Policy to proceed with your purchase.");
-            }, 50);
-            return;
         }
         // Modal functionality has been replaced with direct navigation
     }
@@ -270,10 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 const banner = document.getElementById('cookie-banner');
                 if (banner) banner.classList.remove('translate-y-full');
-                // Small delay to ensure banner is visible before alert blocks the UI
-                setTimeout(() => {
-                    alert("Please accept our Terms & Conditions and Privacy Policy to proceed with your purchase.");
-                }, 50);
             }
         });
     });
@@ -748,12 +739,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Check if user has already made a choice
         const cookieConsent = sessionStorage.getItem('klarpath_cookie_consent');
 
-        if (!cookieConsent) {
-            // Show banner after a small delay
-            setTimeout(() => {
-                cookieBanner.classList.remove('translate-y-full');
-            }, 500);
-        }
+        // if (!cookieConsent) {
+        //     // Show banner after a small delay
+        //     setTimeout(() => {
+        //         cookieBanner.classList.remove('translate-y-full');
+        //     }, 500);
+        // }
 
         cookieAcceptBtn.addEventListener('click', () => {
             sessionStorage.setItem('klarpath_cookie_consent', 'accepted');
