@@ -697,7 +697,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
+        let popupTimeout;
+
         const hidePopup = () => {
+            clearTimeout(popupTimeout);
             // Hide with animation
             quickViewPopup.classList.remove('pointer-events-auto');
             quickViewPopup.classList.add('pointer-events-none');
@@ -708,8 +711,14 @@ document.addEventListener('DOMContentLoaded', () => {
         infoBtns.forEach(btn => {
             // Mouse Events for devices that support hover
             if (window.matchMedia('(hover: hover)').matches) {
-                btn.addEventListener('mouseenter', () => showPopup(btn));
-                btn.addEventListener('mouseleave', hidePopup);
+                btn.addEventListener('mouseenter', () => {
+                    clearTimeout(popupTimeout);
+                    popupTimeout = setTimeout(() => showPopup(btn), 500);
+                });
+                btn.addEventListener('mouseleave', () => {
+                    clearTimeout(popupTimeout);
+                    hidePopup();
+                });
             }
 
             // Click/Touch Toggle
@@ -717,6 +726,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Ignore clicks on links/buttons inside the card
                 if (e.target.closest('a') || e.target.closest('button')) return;
                 e.stopPropagation();
+                
+                clearTimeout(popupTimeout);
                 showPopup(btn);
             });
         });
