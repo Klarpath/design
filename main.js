@@ -604,6 +604,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     }
 
+    // --- Articles Modal Logic ---
+    const articlesModal = document.getElementById('articles-modal');
+    const openArticlesLink = document.getElementById('open-articles-link');
+    const closeArticlesModalBtn = document.getElementById('articles-modal-close');
+
+    if (articlesModal && openArticlesLink) {
+        openArticlesLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            articlesModal.classList.add('is-active');
+        });
+
+        if (closeArticlesModalBtn) {
+            closeArticlesModalBtn.addEventListener('click', () => {
+                articlesModal.classList.remove('is-active');
+            });
+        }
+
+        articlesModal.addEventListener('click', (e) => {
+            if (e.target === articlesModal) articlesModal.classList.remove('is-active');
+        });
+    }
+
     // --- Quick View Popup Logic (Press & Hold) ---
     const quickViewPopup = document.getElementById('quick-view-popup');
     const quickViewTitle = document.getElementById('quick-view-title');
