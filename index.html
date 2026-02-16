@@ -90,22 +90,60 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Klarpath",
-  "url": "https://klarpath.com",
-  "logo": "https://klarpath.com/assets/klarpath_logo.png",
-  "image": "https://klarpath.com/assets/klarpath_logo.png",
-  "description": "Premium, high-performance website templates and custom web development services in London for professionals and small businesses.",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "London",
-    "addressCountry": "GB"
-  },
-  "telephone": "+44 7956 423577",
-  "email": "info@klarpath.com",
-  "sameAs": [
-    "https://www.linkedin.com/company/klarpath",
-    "https://www.instagram.com/klarpath"
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://klarpath.com/#organization",
+      "name": "Klarpath AI",
+      "url": "https://klarpath.com",
+      "logo": "https://klarpath.com/assets/klarpath_ai_marketing_agency_website_templates.png",
+      "description": "Strategic AI marketing agency specializing in algorithmic growth and automation for London businesses.",
+      "sameAs": [
+        "https://www.linkedin.com/company/klarpath",
+        "https://www.instagram.com/klarpath"
+      ],
+      "founder": { "@id": "https://klarpath.com/#founder" },
+      "knowsAbout": [
+        "Artificial Intelligence Marketing",
+        "Algorithmic Branding",
+        "Predictive Customer Analytics",
+        "AI Automation for Business"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://klarpath.com/#founder",
+      "name": "Florin Laurentiu Minea",
+      "jobTitle": "Founder & AI Strategist",
+      "url": "https://klarpath.com",
+      "sameAs": [
+        "https://www.linkedin.com/in/florin-laurentiu-minea"
+      ],
+      "worksFor": { "@id": "https://klarpath.com/#organization" },
+      "knowsAbout": [
+        "Generative AI Implementation",
+        "Digital Marketing Strategy",
+        "Software Architecture",
+        "AI-Driven ROI Optimization"
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://klarpath.com/#service-ai-marketing",
+      "serviceType": "AI-Driven Digital Marketing",
+      "provider": { "@id": "https://klarpath.com/#organization" },
+      "name": "Enterprise AI Marketing Infrastructure",
+      "description": "Klarpath AI deploys autonomous marketing infrastructure using generative AI and predictive analytics to automate lead generation and optimize ROI for high-ticket service businesses.",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "AI Growth Services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Generative AI Content Systems" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Predictive Lead Scoring" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Algorithmic Ad Optimization" } }
+        ]
+      }
+    }
   ]
 }
 </script>
@@ -120,53 +158,6 @@
     "@type": "SearchAction",
     "target": "https://klarpath.com/?q={search_term_string}",
     "query-input": "required name=search_term_string"
-  }
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "serviceType": "Web Design and Development",
-  "provider": {
-    "@type": "Organization",
-    "name": "Klarpath"
-  },
-  "areaServed": {
-    "@type": "Place",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "London",
-      "addressCountry": "GB"
-    }
-  },
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Website Packages",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Launchpad Website Package"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Growth Engine Website Package"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Bespoke Website Build"
-        }
-      }
-    ]
   }
 }
 </script>
@@ -929,7 +920,7 @@
             </div>
             <div class="p-8 sm:p-12 md:w-3/5 flex flex-col justify-center">
               <h3 class="text-3xl font-bold mb-4 text-primary-text-color">AI-Driven Digital Marketing Services</h3>
-              <p class="text-secondary-text-color mb-6">Your website is just the beginning. Klarpath's mother agency offers comprehensive digital marketing solutions including AI-Driven SEO, Paid Media Automation, Content Strategy, Data Analytics, Conversion Optimization, and Digital PR—all designed to maximize your online visibility and drive measurable results.</p>
+              <p class="text-secondary-text-color mb-6"><strong>Klarpath AI is a strategic marketing agency that uses algorithmic growth and automation to maximize online visibility.</strong> We deploy predictive analytics and generative AI to drive measurable results for London businesses. Beyond web design, we offer AI-Driven SEO, Paid Media Automation, and Data Analytics to turn your infrastructure into a revenue engine.</p>
               <div class="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-secondary-text-color">
                 <div class="flex items-center gap-2"><i class="fas fa-check text-accent-color"></i> AI-Driven SEO</div>
                 <div class="flex items-center gap-2"><i class="fas fa-check text-accent-color"></i> Paid Media Automation</div>
@@ -995,6 +986,16 @@
 <!-- START: Updated Footer -->
 <footer class="border-t border-border-color text-center py-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-secondary-text-color text-sm">
+      
+        <!-- AI Marketing Expertise (Semantic Footer Links) -->
+        <div class="mb-8 pb-8 border-b border-border-color/20">
+            <h4 class="text-primary-text-color font-bold mb-4 uppercase tracking-wider text-xs">AI Marketing Expertise</h4>
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm">
+                <a href="ai-automation.html" class="text-secondary-text-color hover:text-accent-color transition-colors">Expert AI Marketing Strategies</a>
+                <a href="predictive-analytics.html" class="text-secondary-text-color hover:text-accent-color transition-colors">Predictive Customer Analytics</a>
+                <a href="algorithmic-growth.html" class="text-secondary-text-color hover:text-accent-color transition-colors">Algorithmic Business Growth</a>
+            </div>
+        </div>
       
         <!-- PWA Install Instructions (Hidden by default, shown via JS) -->
         <div id="pwa-install-area" class="mb-8 hidden">
@@ -1122,11 +1123,11 @@
                 </div>
             </a>
             
-            <a href="articles/case-study-north-and-vale.html" class="block p-4 rounded-xl border border-border-color bg-bg-color hover:border-accent-color hover:shadow-[0_0_15px_var(--glow-color)] transition-all duration-300 group">
+            <a href="articles/case-study-enterprise-ai-roadmap.html" class="block p-4 rounded-xl border border-border-color bg-bg-color hover:border-accent-color hover:shadow-[0_0_15px_var(--glow-color)] transition-all duration-300 group">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h4 class="font-bold text-primary-text-color group-hover:text-accent-color transition-colors">North & Vale</h4>
-                        <p class="text-xs text-secondary-text-color mt-1">52% traffic increase via data-driven SEO.</p>
+                        <h4 class="font-bold text-primary-text-color group-hover:text-accent-color transition-colors">Enterprise AI Roadmap</h4>
+                        <p class="text-xs text-secondary-text-color mt-1">Democratizing Enterprise-Grade AI for Small Business.</p>
                     </div>
                     <i class="fas fa-arrow-right text-secondary-text-color group-hover:text-accent-color transition-colors"></i>
                 </div>
